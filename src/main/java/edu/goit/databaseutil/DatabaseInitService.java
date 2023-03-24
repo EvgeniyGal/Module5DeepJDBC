@@ -11,33 +11,29 @@ public class DatabaseInitService {
 
     public static void main(String[] args) {
 
-        String sqlWorker = "CREATE TABLE worker (\n" +
-                "  ID INT AUTO_INCREMENT PRIMARY KEY,\n" +
-                "  NAME VARCHAR(1000) NOT NULL CHECK (LENGTH(NAME) >= ? AND LENGTH(NAME) <= ?),\n" +
-                "  BIRTHDAY DATE CHECK (BIRTHDAY >= ?),\n" +
-                "  LEVEL VARCHAR(10) NOT NULL CHECK (LEVEL IN (?, ?, ?, ?)),\n" +
-                "  SALARY INT CHECK (SALARY >= ? AND SALARY <= ?)\n" +
-                ");\n";
+        String sqlWorker = "CREATE TABLE worker (" +
+                "  ID INT AUTO_INCREMENT PRIMARY KEY," +
+                "  NAME VARCHAR(1000) NOT NULL CHECK (LENGTH(NAME) >= ? AND LENGTH(NAME) <= ?)," +
+                "  BIRTHDAY DATE CHECK (BIRTHDAY >= ?)," +
+                "  LEVEL VARCHAR(10) NOT NULL CHECK (LEVEL IN (?, ?, ?, ?))," +
+                "  SALARY INT CHECK (SALARY >= ? AND SALARY <= ?));";
 
-        String sqlClient = "CREATE TABLE client (\n" +
-                "  ID INT AUTO_INCREMENT PRIMARY KEY,\n" +
-                "  NAME VARCHAR(1000) NOT NULL CHECK (LENGTH(NAME) >= ? AND LENGTH(NAME) <= ?)\n" +
-                ");\n";
-        String sqlProdWork = "CREATE TABLE project (\n" +
-                "  ID INT AUTO_INCREMENT PRIMARY KEY,\n" +
-                "  CLIENT_ID INT NOT NULL,\n" +
-                "  START_DATE DATE,\n" +
-                "  FINISH_DATE DATE,\n" +
-                "  FOREIGN KEY (CLIENT_ID) REFERENCES client(ID)\n" +
-                ");\n" +
-                "\n" +
-                "CREATE TABLE project_worker (\n" +
-                "  PROJECT_ID INT NOT NULL,\n" +
-                "  WORKER_ID INT NOT NULL,\n" +
-                "  PRIMARY KEY (PROJECT_ID, WORKER_ID),\n" +
-                "  FOREIGN KEY (PROJECT_ID) REFERENCES project(ID),\n" +
-                "  FOREIGN KEY (WORKER_ID) REFERENCES worker(ID)\n" +
-                ");";
+        String sqlClient = "CREATE TABLE client (" +
+                "  ID INT AUTO_INCREMENT PRIMARY KEY," +
+                "  NAME VARCHAR(1000) NOT NULL CHECK (LENGTH(NAME) >= ? AND LENGTH(NAME) <= ?));";
+
+        String sqlProdWork = "CREATE TABLE project (" +
+                "  ID INT AUTO_INCREMENT PRIMARY KEY," +
+                "  CLIENT_ID INT NOT NULL," +
+                "  START_DATE DATE," +
+                "  FINISH_DATE DATE," +
+                "  FOREIGN KEY (CLIENT_ID) REFERENCES client(ID)); " +
+                "CREATE TABLE project_worker (" +
+                "  PROJECT_ID INT NOT NULL," +
+                "  WORKER_ID INT NOT NULL," +
+                "  PRIMARY KEY (PROJECT_ID, WORKER_ID)," +
+                "  FOREIGN KEY (PROJECT_ID) REFERENCES project(ID)," +
+                "  FOREIGN KEY (WORKER_ID) REFERENCES worker(ID));";
 
         int maxNameLength = 1000;
         int minNameLength = 2;

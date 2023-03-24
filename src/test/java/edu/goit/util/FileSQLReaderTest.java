@@ -1,7 +1,11 @@
 package edu.goit.util;
 
+import edu.goit.entity.Project;
+import edu.goit.entity.Worker;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
 
 class FileSQLReaderTest {
 
@@ -39,4 +43,29 @@ class FileSQLReaderTest {
 
         Assertions.assertEquals(expected, actual);
     }
+
+    @Test
+    void readWorkersFromFileTest() {
+        List<Worker> workers = FileSQLReader.readWorkersFromFile("src/main/java/edu/goit/sql/workers.txt");
+        int actual = workers.size();
+        int expected = 31;
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    void readClientsFromFileTest() {
+        List<String> clients = FileSQLReader.readClientsFromFile("src/main/java/edu/goit/sql/client.txt");
+        int actual = clients.size();
+        int expected = 10;
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    void readProjectsFromFileTest() {
+        List<Project> clients = FileSQLReader.readProjectFromFile("src/main/java/edu/goit/sql/project.txt");
+        int actual = clients.size();
+        int expected = 20;
+        Assertions.assertEquals(expected, actual);
+    }
+
 }
